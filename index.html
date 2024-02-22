@@ -18,19 +18,20 @@
 </style>
 </head>
 <body>
-<div id="repos"></div>
+
+    <div id="repos"></div>
 
 <script>
-    // JavaScript para cargar los repositorios desde un archivo JSON y buscar imágenes en los README.md
-
-    // URL del archivo JSON que contiene la lista de repositorios
+    // lista de repositorios catalogados
     var jsonURL = './catalogo.json';
 
-    // Función para cargar y mostrar los repositorios
-    function cargarRepos() {
+    // Resumen de cada repositorio
+    function cargarRepos()
+    {
         fetch(jsonURL)
         .then(response => response.json())
-        .then(data => {
+        .then(data => 
+        {
             var reposDiv = document.getElementById('repos');
             data.forEach(repo => {
                 var repoDiv = document.createElement('div');
@@ -42,17 +43,24 @@
                 var repoReadmeURL = repo.readme_url; // URL del archivo README.md del repositorio
                 var repoImg = document.createElement('img');
 
-                // Fetch para obtener el README.md y buscar imágenes
-                fetch(repoReadmeURL)
+                // leyendo el README.md
+                fetch(repoReadmeURL,{mode: 'no-cors'})
                 .then(response => response.text())
-                .then(text => {
-                    // Usar una expresión regular para buscar las etiquetas <img> en el README.md
+                .then(text => 
+                {    
+                   
+                    
+                    // buscando las url de las imagenes
                     var imgMatches = text.match(/!\[.*?\]\((.*?)\)/g);
                     if (imgMatches && imgMatches.length > 0) {
-                        // Tomar la URL de la primera imagen encontrada
+                        
+                        // url de la primera imagen
                         var imgURL = imgMatches[0].match(/!\[.*?\]\((.*?)\)/)[1];
                         repoImg.src = imgURL;
+                        console.log(imgUrl);
+
                         repoDiv.appendChild(repoImg);
+
                     }
                 })
                 .catch(error => console.error('Error cargando el README.md:', error));
