@@ -54,12 +54,15 @@
                     
                     // buscando las url de las imagenes
                     var imgMatches = text.match(/!\[.*?\]\((.*?)\)/g);
+
+
+
                     if (imgMatches && imgMatches.length > 0) {
                         
                         // url de la primera imagen
                         var imgURL = imgMatches[0].match(/!\[.*?\]\((.*?)\)/)[1];
                         repoImg.src = imgURL;
-                        console.log(imgUrl);
+                        console.log(imgURL);
 
                         repoDiv.appendChild(repoImg);
 
