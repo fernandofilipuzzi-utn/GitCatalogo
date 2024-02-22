@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Repositorios</title>
+<style>
+    /* Estilos CSS */
+    .repo {
+        margin-bottom: 20px;
+        border-bottom: 1px solid #ccc;
+        padding-bottom: 20px;
+    }
+    .repo img {
+        max-width: 100%;
+        height: auto;
+    }
+</style>
+</head>
+<body>
+<div id="repos"></div>
+
+<script>
+    // JavaScript para cargar los repositorios desde un archivo JSON y buscar imágenes en los README.md
+
+    // URL del archivo JSON que contiene la lista de repositorios
+    var jsonURL = './catalogo.json';
+
+    // Función para cargar y mostrar los repositorios
+    function cargarRepos() {
+        fetch(jsonURL)
+        .then(response => response.json())
+        .then(data => {
+            var reposDiv = document.getElementById('repos');
+            data.forEach(repo => {
+                var repoDiv = document.createElement('div');
+                repoDiv.classList.add('repo');
+                var repoName = document.createElement('h3');
+                repoName.textContent = repo.name;
+                var repoDescription = document.createElement('p');
+                repoDescription.textContent = repo.description;
+                var repoReadmeURL = repo.readme_url; // URL del archivo README.md del repositorio
+                var repoImg = document.createElement('img');
+
+                // Fetch para obtener el README.md y buscar imágenes
+                fetch(repoReadmeURL)
+                .then(response => response.text())
+                .then(text => {
+                    // Usar una expresión regular para buscar las etiquetas <img> en el README.md
+                    var imgMatches = text.match(/!\[.*?\]\((.*?)\)/g);
+                    if (imgMatches && imgMatches.length > 0) {
+                        // Tomar la URL de la primera imagen encontrada
+                        var imgURL = imgMatches[0].match(/!\[.*?\]\((.*?)\)/)[1];
+                        repoImg.src = imgURL;
+                        repoDiv.appendChild(repoImg);
+                    }
+                })
+                .catch(error => console.error('Error cargando el README.md:', error));
+
+                repoDiv.appendChild(repoName);
+                repoDiv.appendChild(repoDescription);
+                reposDiv.appendChild(repoDiv);
+            });
+        })
+        .catch(error => console.error('Error cargando repositorios:', error));
+    }
+
+    // Llamar a la función para cargar los repositorios al cargar la página
+    cargarRepos();
+</script>
+</body>
+</html>

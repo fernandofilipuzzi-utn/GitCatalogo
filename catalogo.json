@@ -1,0 +1,13 @@
+[
+    {
+      "name": "Mi repositorio 1",
+      "description": "Descripción del repositorio 1",
+      "readme_url": "https://github.com/fernandofilipuzzi-utn/DotNetCsharpEjemplosOAuth/blob/main/README.md"
+    },
+    {
+      "name": "Mi repositorio 2",
+      "description": "Ejemplos aplicando librerías de terceros",
+      "readme_url": "https://github.com/fernandofilipuzzi-utn/EjemplosLibreriasExternas/blob/main/README.md"
+    }
+  ]
+  
