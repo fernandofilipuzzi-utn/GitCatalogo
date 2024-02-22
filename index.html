@@ -54,7 +54,7 @@
                                 // buscando las url de las imagenes
                                 console.log('Contenido del README.md:', text);
 
-                                var imgMatches = text.match(/!\[.*?\]\((.*?)\)/g);
+                                var imgMatches = text.match(/<img.*?src="([^"]*)"/g);
                                 console.log('Coincidencias de imágenes:', imgMatches);
 
                                 if (imgMatches && imgMatches.length > 0) 
@@ -76,8 +76,13 @@
         }
 
         // Llamar a la función para cargar los repositorios al cargar la página
+
         cargarRepos();
+
+        //fetch(url, { mode: 'no-cors' }).then(response =>{  console.log('Estado de la respuesta:', response.status); return response.text()}).then(text => {console.log('texto', text); }).catch(error => { console.log(error); });
     </script>
 </body>
+
+
 
 </html>
