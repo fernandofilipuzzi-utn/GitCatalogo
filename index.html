@@ -44,6 +44,8 @@
                 var repoImg = document.createElement('img');
 
                 // leyendo el README.md
+                console.log(epoReadmeURL);
+
                 fetch(repoReadmeURL,{mode: 'no-cors'})
                 .then(response => response.text())
                 .then(text => 
